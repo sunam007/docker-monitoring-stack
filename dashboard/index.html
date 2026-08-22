@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>System Metrics Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1e1e2f;
+            color: #fff;
+            text-align: center;
+            padding: 40px;
+        }
+        h1 { color: #00d9ff; }
+        .metric {
+            background: #2a2a3d;
+            margin: 15px auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            font-size: 18px;
+        }
+        .label { color: #aaa; }
+        .value { color: #00ff88; font-weight: bold; font-size: 24px; }
+    </style>
+</head>
+<body>
+    <h1>📊 System Metrics Dashboard</h1>
+    <div class="metric">
+        <div class="label">CPU Usage</div>
+        <div class="value" id="cpu">Loading...</div>
+    </div>
+    <div class="metric">
+        <div class="label">Memory Usage</div>
+        <div class="value" id="memory">Loading...</div>
+    </div>
+    <div class="metric">
+        <div class="label">Disk Usage</div>
+        <div class="value" id="disk">Loading...</div>
+    </div>
+    <div class="metric">
+        <div class="label">Uptime</div>
+        <div class="value" id="uptime">Loading...</div>
+    </div>
+</body>
+</html>
