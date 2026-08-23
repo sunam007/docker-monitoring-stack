@@ -4,43 +4,188 @@
     <meta charset="UTF-8">
     <title>System Metrics Dashboard</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
         body {
-            font-family: Arial, sans-serif;
-            background: #1e1e2f;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e1e2f 0%, #2a2a4a 100%);
             color: #fff;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        h1 {
+            color: #00d9ff;
             text-align: center;
-            padding: 40px;
+            margin-bottom: 10px;
+            font-size: 2.5em;
         }
-        h1 { color: #00d9ff; }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
         .metric {
-            background: #2a2a3d;
-            margin: 15px auto;
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            font-size: 18px;
+            background: rgba(42, 42, 61, 0.8);
+            margin: 15px 0;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #00d9ff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
         }
-        .label { color: #aaa; }
-        .value { color: #00ff88; font-weight: bold; font-size: 24px; }
+        .metric:hover {
+            transform: translateX(5px);
+        }
+        .label {
+            color: #aaa;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .value {
+            color: #00ff88;
+            font-weight: bold;
+            font-size: 28px;
+        }
+        .bar {
+            background: #1a1a2e;
+            height: 8px;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00d9ff);
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+        .footer {
+            text-align: center;
+            color: #666;
+            margin-top: 30px;
+            font-size: 12px;
+        }
+        .status {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #00ff88;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .error {
+            background: rgba(255, 50, 50, 0.2);
+            border-left-color: #ff3232;
+            color: #ff8888;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
-    <h1>📊 System Metrics Dashboard</h1>
-    <div class="metric">
-        <div class="label">CPU Usage</div>
-        <div class="value" id="cpu">Loading...</div>
+    <div class="container">
+        <h1>📊 System Metrics Dashboard</h1>
+        <p class="subtitle"><span class="status"></span>Live data from Metrics Collector</p>
+
+        <div id="error-box" class="error" style="display:none;">
+            ⚠️ Cannot reach Metrics Collector
+        </div>
+
+        <div class="metric">
+            <div>
+                <div class="label">CPU Usage</div>
+                <div class="bar"><div id="cpu-bar" class="bar-fill" style="width:0%"></div></div>
+            </div>
+            <div class="value" id="cpu">--%</div>
+        </div>
+
+        <div class="metric">
+            <div>
+                <div class="label">Memory Usage</div>
+                <div class="bar"><div id="memory-bar" class="bar-fill" style="width:0%"></div></div>
+            </div>
+            <div class="value" id="memory">--%</div>
+        </div>
+
+        <div class="metric">
+            <div>
+                <div class="label">Disk Usage</div>
+                <div class="bar"><div id="disk-bar" class="bar-fill" style="width:0%"></div></div>
+            </div>
+            <div class="value" id="disk">--%</div>
+        </div>
+
+        <div class="metric">
+            <div>
+                <div class="label">Uptime</div>
+            </div>
+            <div class="value" id="uptime">--</div>
+        </div>
+
+        <p class="footer">
+            Hostname: <span id="hostname">--</span> |
+            Last updated: <span id="last-updated">--</span>
+        </p>
     </div>
-    <div class="metric">
-        <div class="label">Memory Usage</div>
-        <div class="value" id="memory">Loading...</div>
-    </div>
-    <div class="metric">
-        <div class="label">Disk Usage</div>
-        <div class="value" id="disk">Loading...</div>
-    </div>
-    <div class="metric">
-        <div class="label">Uptime</div>
-        <div class="value" id="uptime">Loading...</div>
-    </div>
+
+    <script>
+        // Use NGINX reverse proxy to reach the collector
+        // This avoids ERR_UNSAFE_PORT (Chrome blocks port 6000)
+        // NGINX proxies /api/status -> http://collector:6000/status
+        const API_URL = '/api/status';
+
+        async function fetchMetrics() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+
+                // Hide error box if shown
+                document.getElementById('error-box').style.display = 'none';
+
+                // Update values
+                document.getElementById('cpu').textContent = data.cpu.percent.toFixed(1) + '%';
+                document.getElementById('cpu-bar').style.width = data.cpu.percent + '%';
+
+                document.getElementById('memory').textContent = data.memory.percent.toFixed(1) + '%';
+                document.getElementById('memory-bar').style.width = data.memory.percent + '%';
+
+                document.getElementById('disk').textContent = data.disk.percent.toFixed(1) + '%';
+                document.getElementById('disk-bar').style.width = data.disk.percent + '%';
+
+                document.getElementById('uptime').textContent = data.uptime;
+                document.getElementById('hostname').textContent = data.hostname;
+
+                // Update timestamp
+                const now = new Date();
+                document.getElementById('last-updated').textContent = now.toLocaleTimeString();
+            } catch (error) {
+                console.error('Failed to fetch metrics:', error);
+                document.getElementById('error-box').style.display = 'block';
+            }
+        }
+
+        // Fetch immediately, then every 2 seconds
+        fetchMetrics();
+        setInterval(fetchMetrics, 2000);
+    </script>
 </body>
 </html>

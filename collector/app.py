@@ -1,9 +1,12 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 import psutil
 import platform
 import datetime
 
 app = Flask(__name__)
+# Enable CORS so the dashboard (different port) can call this API
+CORS(app)
 
 @app.route('/status')
 def status():
