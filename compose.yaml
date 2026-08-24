@@ -1,0 +1,37 @@
+services:
+  # Dashboard service — serves the web UI via NGINX
+  dashboard:
+    build: ./dashboard
+    image: dashboard:latest
+    container_name: dashboard
+    ports:
+      - "9090:80"
+    networks:
+      - monitoring-net
+    depends_on:
+      - collector
+    restart: unless-stopped
+
+  # Metrics Collector service — Flask API on port 6000
+  collector:
+    build: ./collector
+    image: collector:latest
+    container_name: collector
+    ports:
+      - "6000:6000"
+    volumes:
+      - monitoring-data:/data
+    networks:
+      - monitoring-net
+    restart: unless-stopped
+
+# Define networks
+networks:
+  monitoring-net:
+    name: monitoring-net
+    driver: bridge
+
+# Define volumes for persistent storage
+volumes:
+  monitoring-data:
+    name: monitoring-data
