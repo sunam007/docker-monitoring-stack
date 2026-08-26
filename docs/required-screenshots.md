@@ -9,17 +9,19 @@ docker compose up -d
 On Windows, open the dashboard at: `http://localhost:9090`  
 On the Linux lab server, use: `http://<server-ip>:9090`
 
+Save images into [`screenshots/`](../screenshots/) using the filenames below. They are embedded in the project [README Screenshots section](../README.md#screenshots).
+
 ---
 
 ## Checklist
 
-| # | Screenshot | What to show | Command / URL |
-|---|------------|--------------|---------------|
-| 1 | Working dashboard | Live metrics page in the browser (CPU, memory, disk, uptime updating) | Open `http://localhost:9090` (or `http://<server-ip>:9090`) |
-| 2 | Compose status | Both `dashboard` and `collector` containers running | `docker compose ps` |
-| 3 | Docker images | Your built images listed (e.g. `dashboard`, `collector`) | `docker images` |
-| 4 | Docker network | Network `monitoring-net` present | `docker network ls` |
-| 5 | Docker volume | Volume `monitoring-data` present | `docker volume ls` |
+| # | Screenshot | Save as | What to show | Command / URL |
+|---|------------|---------|--------------|---------------|
+| 1 | Working dashboard | [`screenshots/01-dashboard.png`](../screenshots/01-dashboard.png) | Live metrics page in the browser (CPU, memory, disk, uptime updating) | Open `http://localhost:9090` (or `http://<server-ip>:9090`) |
+| 2 | Compose status | [`screenshots/02-compose-ps.png`](../screenshots/02-compose-ps.png) | Both `dashboard` and `collector` containers running | `docker compose ps` |
+| 3 | Docker images | [`screenshots/03-docker-images.png`](../screenshots/03-docker-images.png) | Your built images listed (e.g. `dashboard`, `collector`) | `docker images` |
+| 4 | Docker network | [`screenshots/04-docker-network.png`](../screenshots/04-docker-network.png) | Network `monitoring-net` present | `docker network ls` |
+| 5 | Docker volume | [`screenshots/05-docker-volume.png`](../screenshots/05-docker-volume.png) | Volume `monitoring-data` present | `docker volume ls` |
 
 ---
 
@@ -81,3 +83,4 @@ docker volume inspect monitoring-data
 - On the Linux lab VM, older docs used `sudo docker ...` — on Windows Docker Desktop, `sudo` is usually not needed.
 - Do **not** use `http://localhost:6000` in Chrome for the dashboard proof; use port **9090**.
 - If the dashboard URL fails on Linux, check the current IP with `hostname -I` (see `troubleshooting-dhcp-ip-change.md`).
+- Save files with the exact names in the checklist into [`screenshots/`](../screenshots/) so the [README](../README.md#screenshots) embeds stay valid.

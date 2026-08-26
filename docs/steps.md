@@ -13,7 +13,7 @@ Each step has a checkbox `[ ]` you can mark as you complete it.
 - [ ] Task 4 — Docker Compose
 - [ ] Task 5 — Monitoring & Troubleshooting
 - [ ] Bonus — Restart Policy
-- [ ] Final — Screenshots & Submission
+- [x] Final — Screenshots & Submission
 
 ---
 
@@ -202,17 +202,26 @@ If something breaks, document it:
 ## Final — 📦 Screenshots & Submission
 
 ### Required Screenshots
-- [ ] 🖼️ Screenshot of the working dashboard (browser at `http://<server-ip>:9090`)
-- [ ] 🖼️ Screenshot of `docker compose ps`
-- [ ] 🖼️ Screenshot showing Docker images (`docker images`)
-- [ ] 🖼️ Screenshot showing the Docker network (`docker network ls`)
-- [ ] 🖼️ Screenshot showing the Docker volume (`docker volume ls`)
+Saved under [`screenshots/`](../screenshots/) and embedded in [README.md](../README.md#screenshots). Capture guide: [`docs/required-screenshots.md`](required-screenshots.md).
+
+- [x] 🖼️ Screenshot of the working dashboard → `screenshots/01-dashboard.png`
+- [x] 🖼️ Screenshot of `docker compose ps` → `screenshots/02-compose-ps.png`
+- [x] 🖼️ Screenshot showing Docker images → `screenshots/03-docker-images.png`
+- [x] 🖼️ Screenshot showing the Docker network → `screenshots/04-docker-network.png`
+- [x] 🖼️ Screenshot showing the Docker volume → `screenshots/05-docker-volume.png`
 
 ### Final Folder Structure
 Verify your project looks like this:
 ```
 docker-project/
 ├── compose.yaml
+├── README.md
+├── screenshots/
+│   ├── 01-dashboard.png
+│   ├── 02-compose-ps.png
+│   ├── 03-docker-images.png
+│   ├── 04-docker-network.png
+│   └── 05-docker-volume.png
 ├── dashboard/
 │   ├── Dockerfile
 │   └── index.html

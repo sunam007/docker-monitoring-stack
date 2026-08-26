@@ -91,6 +91,7 @@ User/Browser
 docker-monitoring-stack/
 ├── compose.yaml              # Docker Compose configuration
 ├── README.md                 # This file
+├── screenshots/              # Lab submission screenshots
 ├── dashboard/
 │   ├── Dockerfile            # NGINX image with custom HTML
 │   └── index.html            # Metrics dashboard UI
@@ -263,13 +264,25 @@ docker volume inspect monitoring-data          # Volume details
 
 ## 📸 Screenshots
 
-> Add screenshots here after running the application
+### Working dashboard
 
-- 🖼️ Dashboard (`http://<server-ip>:9090`)
-- 🖼️ `docker compose ps` output
-- 🖼️ Docker images (`docker images`)
-- 🖼️ Docker network (`docker network ls`)
-- 🖼️ Docker volume (`docker volume ls`)
+![Working dashboard](screenshots/01-dashboard.png)
+
+### `docker compose ps`
+
+![docker compose ps](screenshots/02-compose-ps.png)
+
+### Docker images
+
+![Docker images](screenshots/03-docker-images.png)
+
+### Docker network
+
+![Docker network](screenshots/04-docker-network.png)
+
+### Docker volume
+
+![Docker volume](screenshots/05-docker-volume.png)
 
 ---
 
