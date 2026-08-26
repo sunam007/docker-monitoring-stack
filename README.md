@@ -357,4 +357,4 @@ This project is licensed under the MIT License.
 
 ---
 
-**⭐ If you find this project useful, please give it a star on GitHub!**
+**⭐ If you find this project useful, please give it a star on GitHub !**
