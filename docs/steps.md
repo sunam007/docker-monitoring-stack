@@ -7,12 +7,12 @@ Each step has a checkbox `[ ]` you can mark as you complete it.
 
 ## Progress Summary
 
-- [ ] Task 1 — Linux Setup
-- [ ] Task 2 — Docker Basics, Image Management, Networking & Storage
-- [ ] Task 3 — Dockerize the Application
-- [ ] Task 4 — Docker Compose
-- [ ] Task 5 — Monitoring & Troubleshooting
-- [ ] Bonus — Restart Policy
+- [x] Task 1 — Linux Setup
+- [x] Task 2 — Docker Basics, Image Management, Networking & Storage
+- [x] Task 3 — Dockerize the Application
+- [x] Task 4 — Docker Compose
+- [x] Task 5 — Monitoring & Troubleshooting
+- [x] Bonus — Restart Policy
 - [x] Final — Screenshots & Submission
 
 ---
@@ -181,9 +181,9 @@ Each step has a checkbox `[ ]` you can mark as you complete it.
 
 ### Step 5.2: Troubleshoot any issues
 If something breaks, document it:
-- 🔍 **What caused the problem?** → _______________
-- 🛠️ **Which command found it?** → _______________
-- ✅ **How did you fix it?** → _______________
+- 🔍 **What caused the problem?** → See [task-5-troubleshooting.md](task-5-troubleshooting.md)
+- 🛠️ **Which command found it?** → See [task-5-troubleshooting.md](task-5-troubleshooting.md)
+- ✅ **How did you fix it?** → See [task-5-troubleshooting.md](task-5-troubleshooting.md)
 
 ✅ **Task 5 complete when:** You can confidently explain the app's state using Docker commands.
 
